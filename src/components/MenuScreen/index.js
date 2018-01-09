@@ -1,4 +1,15 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
+
+import Button from '../components/Button';
+
+const PlayButton = Button.extend`
+  color: green;
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
 class MenuScreen extends Component {
   constructor(props) {
@@ -15,9 +26,9 @@ class MenuScreen extends Component {
     const goToGameScreen = this.props.goToGameScreen;
     return (
       <div>
-        <p>{window.localStorage['last-score']}</p>
-        <p>{window.localStorage['best-score']}</p>
-        <button onClick={goToGameScreen}>game</button>
+        <p>last: {window.localStorage['last-score']}</p>
+        <p>best: {window.localStorage['best-score']}</p>
+        <PlayButton onClick={goToGameScreen}>play</PlayButton>
       </div>
     );
   }

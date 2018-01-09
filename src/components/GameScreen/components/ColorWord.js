@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Colored = styled.div`
-  font-size: 5rem;
+  font-size: 7rem;
   font-weight: bold;
   color: ${props => props.color};
 `;

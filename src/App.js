@@ -6,7 +6,12 @@ import GameScreen from './components/GameScreen';
 
 const Wrapper = styled.div`
   max-width: 60rem;
+  height: 100vh;
+  max-height: 600px;
+  padding: 1px;
+  box-sizing: border-box;
   margin: 0 auto;
+  position: relative;
 `;
 
 class App extends Component {
