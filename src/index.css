@@ -10,7 +10,8 @@ body {
   font-family: Arial, sans-serif;
   font-size: 2rem;
   height: 100%;
-  /*overflow: hidden;*/
+  overflow: hidden;
+  user-select: none;
 }
 #root {
   height: 100%;

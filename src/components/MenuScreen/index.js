@@ -6,20 +6,31 @@ import Button from '../components/Button';
 const PlayButton = Button.extend`
   color: green;
   position: absolute;
-  bottom: 5rem;
+  bottom: 3rem;
   left: 50%;
   transform: translate(-50%, -50%);
+`;
+
+const Wrapper = styled.div`
+  text-align: center;
 `;
 
 const Heading = styled.h1`
   font-size: 5rem;
   margin: 2rem 0 0.5rem;
-  text-align: center;
 `;
 
 const Subheading = styled.h3`
   font-size: 1.5rem;
-  text-align: center;
+  margin-bottom: 5rem;
+`;
+
+const Score = styled.div`
+  margin: 3rem 0;
+`;
+
+const Number = styled.p`
+  font-size: 4rem;
 `;
 
 class MenuScreen extends Component {
@@ -36,13 +47,19 @@ class MenuScreen extends Component {
   render() {
     const goToGameScreen = this.props.goToGameScreen;
     return (
-      <div>
+      <Wrapper>
         <Heading>BrainFreeze</Heading>
         <Subheading>Does it match?</Subheading>
-        <p>last: {window.localStorage['last-score']}</p>
-        <p>best: {window.localStorage['best-score']}</p>
+        <Score>
+          last score:
+          <Number>{window.localStorage['last-score']}</Number>
+        </Score>
+        <Score>
+          best score:
+          <Number>{window.localStorage['best-score']}</Number>
+        </Score>
         <PlayButton onClick={goToGameScreen}>play</PlayButton>
-      </div>
+      </Wrapper>
     );
   }
 }

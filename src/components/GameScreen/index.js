@@ -10,7 +10,7 @@ const ButtonPanel = styled.div`
   justify-content: space-around;
   width: 99%;
   position: absolute;
-  bottom: 5rem;
+  bottom: 3rem;
   transform: translateY(-50%);
 `;
 
