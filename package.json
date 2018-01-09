@@ -9,6 +9,8 @@
     "styled-components": "^2.4.0"
   },
   "scripts": {
+    "deploy":
+      "react-scripts build && surge -d https://brainfreeze.surge.sh -p ./build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
