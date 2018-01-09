@@ -50,7 +50,6 @@ class GameScreen extends Component {
       this.state.score
     );
     window.clearInterval(this.timer);
-    console.log(reason);
     window.setTimeout(this.props.goToMenuScreen, 2000);
   }
 

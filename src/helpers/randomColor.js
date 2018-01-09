@@ -1,13 +1,4 @@
-const colors = [
-  'black',
-  'white',
-  'red',
-  'purple',
-  'green',
-  'yellow',
-  'blue',
-  'orange'
-];
+const colors = ['black', 'red', 'purple', 'green', 'yellow', 'blue', 'orange'];
 
 const randIndex = len => {
   return Math.floor(Math.random() * len);

@@ -17,7 +17,7 @@ class MenuScreen extends Component {
       <div>
         <p>{window.localStorage['last-score']}</p>
         <p>{window.localStorage['best-score']}</p>
-        menu screen <button onClick={goToGameScreen}>game</button>
+        <button onClick={goToGameScreen}>game</button>
       </div>
     );
   }
