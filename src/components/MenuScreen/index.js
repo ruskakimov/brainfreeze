@@ -56,6 +56,7 @@ const Heading = styled.h1`
 
 const Subheading = styled.h3`
   font-size: 1.5rem;
+  padding: 0 3rem;
   margin-bottom: 5rem;
 `;
 
