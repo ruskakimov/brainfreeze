@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 
 import MenuScreen from './components/MenuScreen';
 import GameScreen from './components/GameScreen';
+
+const Wrapper = styled.div`
+  max-width: 60rem;
+  margin: 0 auto;
+`;
 
 class App extends Component {
   constructor(props) {
@@ -24,7 +30,7 @@ class App extends Component {
     ];
     const pageId = this.state.currentPageId;
 
-    return <div className="App">{pages[pageId]}</div>;
+    return <Wrapper>{pages[pageId]}</Wrapper>;
   }
 }
 
