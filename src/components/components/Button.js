@@ -15,8 +15,12 @@ const Button = styled.button`
   cursor: pointer;
 
   &:active,
-  &:focus {
-    outline: none;
+  &.active,
+  &:focus,
+  &:focus:active {
+    outline: 0;
+    background-image: none;
+    box-shadow: none;
   }
 `;
 

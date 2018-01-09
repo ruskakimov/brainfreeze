@@ -8,7 +8,7 @@ import ColorWord from './components/ColorWord';
 const ButtonPanel = styled.div`
   display: flex;
   justify-content: space-around;
-  width: 100%;
+  width: 99%;
   position: absolute;
   bottom: 5rem;
   transform: translateY(-50%);
@@ -22,17 +22,42 @@ const NoButton = Button.extend`
   color: red;
 `;
 
+const ExitButton = Button.extend`
+  color: black;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 6rem;
+  width: 6rem;
+  border: none;
+`;
+
+const Overlay = styled.div`
+  background-color: rgba(255, 255, 255, 0.9);
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 7rem;
+`;
+
 class GameScreen extends Component {
   constructor(props) {
     super(props);
     const [color, word] = getRandomColorPair();
     this.state = {
-      secondsLeft: 60,
+      secondsLeft: 3,
       color: color,
       word: word,
       score: 0,
       gameEnd: false,
-      gameEndMessage: ''
+      gameEndMessage: 'yo test'
     };
     this.tick = this.tick.bind(this);
     this.endGame = this.endGame.bind(this);
@@ -69,7 +94,7 @@ class GameScreen extends Component {
       this.state.score
     );
     window.clearInterval(this.timer);
-    window.setTimeout(this.props.goToMenuScreen, 2000);
+    window.setTimeout(this.props.goToMenuScreen, 1500);
   }
 
   nextColorWord() {
@@ -88,7 +113,7 @@ class GameScreen extends Component {
       });
       this.nextColorWord();
     } else {
-      this.endGame('oops, wrong answer!');
+      this.endGame('oops, wrong!');
     }
   }
 
@@ -123,8 +148,8 @@ class GameScreen extends Component {
           <NoButton onClick={this.handleNo}>NO</NoButton>
           <YesButton onClick={this.handleYes}>YES</YesButton>
         </ButtonPanel>
-        <button onClick={goToMenuScreen}>exit</button>
-        {gameEnd && <div>{gameEndMessage}</div>}
+        <ExitButton onClick={goToMenuScreen}>X</ExitButton>
+        {gameEnd && <Overlay>{gameEndMessage}</Overlay>}
       </div>
     );
   }
