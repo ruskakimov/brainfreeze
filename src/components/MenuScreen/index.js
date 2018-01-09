@@ -6,7 +6,7 @@ import Button from '../components/Button';
 const PlayButton = Button.extend`
   color: green;
   position: absolute;
-  bottom: 10%;
+  bottom: 5rem;
   left: 50%;
   transform: translate(-50%, -50%);
 `;

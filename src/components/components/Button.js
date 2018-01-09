@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Button = styled.button`
-  display: block;
+  display: inline-block;
   width: 10rem;
   height: 10rem;
   font-size: 3rem;
@@ -14,7 +14,8 @@ const Button = styled.button`
   background-color: transparent;
   cursor: pointer;
 
-  &:active {
+  &:active,
+  &:focus {
     outline: none;
   }
 `;

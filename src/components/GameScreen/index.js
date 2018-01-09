@@ -1,7 +1,26 @@
 import React, { Component } from 'react';
+import styled from 'styled-components';
 import getRandomColorPair from '../../helpers/randomColor';
 
+import Button from '../components/Button';
 import ColorWord from './components/ColorWord';
+
+const ButtonPanel = styled.div`
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  position: absolute;
+  bottom: 5rem;
+  transform: translateY(-50%);
+`;
+
+const YesButton = Button.extend`
+  color: green;
+`;
+
+const NoButton = Button.extend`
+  color: red;
+`;
 
 class GameScreen extends Component {
   constructor(props) {
@@ -100,10 +119,10 @@ class GameScreen extends Component {
         <p>{secondsLeft}</p>
         <p>{score}</p>
         <ColorWord color={color} word={word} />
-        <div>
-          <button onClick={this.handleNo}>NO</button>
-          <button onClick={this.handleYes}>YES</button>
-        </div>
+        <ButtonPanel>
+          <NoButton onClick={this.handleNo}>NO</NoButton>
+          <YesButton onClick={this.handleYes}>YES</YesButton>
+        </ButtonPanel>
         <button onClick={goToMenuScreen}>exit</button>
         {gameEnd && <div>{gameEndMessage}</div>}
       </div>
