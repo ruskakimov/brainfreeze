@@ -11,7 +11,9 @@ class GameScreen extends Component {
       secondsLeft: 60,
       color: color,
       word: word,
-      score: 0
+      score: 0,
+      gameEnd: false,
+      gameEndMessage: ''
     };
     this.tick = this.tick.bind(this);
     this.endGame = this.endGame.bind(this);
@@ -38,6 +40,10 @@ class GameScreen extends Component {
   }
 
   endGame(reason) {
+    this.setState({
+      gameEnd: true,
+      gameEndMessage: reason
+    });
     window.localStorage['last-score'] = this.state.score;
     window.localStorage['best-score'] = Math.max(
       window.localStorage['best-score'],
@@ -82,7 +88,14 @@ class GameScreen extends Component {
 
   render() {
     const { goToMenuScreen } = this.props;
-    const { secondsLeft, score, color, word } = this.state;
+    const {
+      secondsLeft,
+      score,
+      color,
+      word,
+      gameEnd,
+      gameEndMessage
+    } = this.state;
     return (
       <div>
         <p>{secondsLeft}</p>
@@ -92,7 +105,8 @@ class GameScreen extends Component {
           <button onClick={this.handleNo}>NO</button>
           <button onClick={this.handleYes}>YES</button>
         </div>
-        game screen <button onClick={goToMenuScreen}>exit</button>
+        <button onClick={goToMenuScreen}>exit</button>
+        {gameEnd && <div>{gameEndMessage}</div>}
       </div>
     );
   }
