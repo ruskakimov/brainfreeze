@@ -3,6 +3,40 @@ import styled from 'styled-components';
 
 import Button from '../components/Button';
 
+const witty_messages = [
+  'Does it match?',
+  'Does it match?',
+  'This game cures cancer',
+  'No refunds',
+  'Score 99 to uncover the krabby patty secret formula',
+  'I believe in you!',
+  'You can do it!',
+  'JUST DO IT Ⓒ',
+  'Why bother?',
+  'I like BORJOMI',
+  'Score -1 to uncover the secret to life',
+  'Is it fun?',
+  'Why are you still here?',
+  'You are running away from your responsibilities',
+  'I like you',
+  'You rock!',
+  "Don't play this game",
+  'This game has ruined lives of 0 people',
+  'Ayy lmao',
+  '... --- ...',
+  "99.9999% of people don't play this game",
+  'On your way to nirvana',
+  'There are better things to do',
+  'Dancing bears!',
+  'I like trains',
+  '😁😁😁',
+  'To infinity and beyond!!!',
+  'Far away in a distant galaxy...',
+  'Come at me bro',
+  'Hello its me ur brother',
+  'Kappa'
+];
+
 const PlayButton = Button.extend`
   color: green;
   position: absolute;
@@ -42,6 +76,15 @@ class MenuScreen extends Component {
     if (window.localStorage['best-score'] === undefined) {
       window.localStorage['best-score'] = 0;
     }
+    if (window.localStorage['witty-message-id'] === undefined) {
+      window.localStorage['witty-message-id'] = 0;
+    }
+  }
+
+  componentDidMount() {
+    const id = window.localStorage['witty-message-id'];
+    console.log(id);
+    window.localStorage['witty-message-id'] = (+id + 1) % witty_messages.length;
   }
 
   render() {
@@ -49,7 +92,9 @@ class MenuScreen extends Component {
     return (
       <Wrapper>
         <Heading>BrainFreeze</Heading>
-        <Subheading>Does it match?</Subheading>
+        <Subheading>
+          {witty_messages[window.localStorage['witty-message-id']]}
+        </Subheading>
         <Score>
           last score:
           <Number>{window.localStorage['last-score']}</Number>
