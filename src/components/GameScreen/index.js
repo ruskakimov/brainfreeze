@@ -47,17 +47,29 @@ const Overlay = styled.div`
   font-size: 7rem;
 `;
 
+const Timer = styled.div`
+  font-size: 2rem;
+  text-align: center;
+  padding: 1.8rem;
+`;
+
+const Score = styled.div`
+  font-size: 5rem;
+  text-align: center;
+  margin: 3rem 0;
+`;
+
 class GameScreen extends Component {
   constructor(props) {
     super(props);
     const [color, word] = getRandomColorPair();
     this.state = {
-      secondsLeft: 3,
+      secondsLeft: 60,
       color: color,
       word: word,
       score: 0,
       gameEnd: false,
-      gameEndMessage: 'yo test'
+      gameEndMessage: ''
     };
     this.tick = this.tick.bind(this);
     this.endGame = this.endGame.bind(this);
@@ -125,7 +137,7 @@ class GameScreen extends Component {
       });
       this.nextColorWord();
     } else {
-      this.endGame('oops, wrong answer!');
+      this.endGame('oops, wrong!');
     }
   }
 
@@ -141,8 +153,8 @@ class GameScreen extends Component {
     } = this.state;
     return (
       <div>
-        <p>{secondsLeft}</p>
-        <p>{score}</p>
+        <Timer>{secondsLeft}</Timer>
+        <Score>{score}</Score>
         <ColorWord color={color} word={word} />
         <ButtonPanel>
           <NoButton onClick={this.handleNo}>NO</NoButton>
