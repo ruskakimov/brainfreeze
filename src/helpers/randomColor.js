@@ -1,6 +1,5 @@
 const colors = [
   'black',
-  'silver',
   'white',
   'red',
   'purple',
