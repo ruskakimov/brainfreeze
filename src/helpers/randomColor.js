@@ -9,8 +9,21 @@ const getRandomColor = () => {
 };
 
 const getRandomColorPair = (prevColor1 = null, prevColor2 = null) => {
+  if (randIndex(3) === 0) {
+    // 33% chance of same colors
+    let color = getRandomColor();
+    while (color === prevColor1) {
+      color = getRandomColor();
+    }
+    return [color, color];
+  }
+
+  // 66% chance of different colors
   const new_pair = [getRandomColor(), getRandomColor()];
-  while (prevColor1 === new_pair[0] && prevColor2 === new_pair[1]) {
+  while (
+    (prevColor1 === new_pair[0] && prevColor2 === new_pair[1]) ||
+    new_pair[0] === new_pair[1]
+  ) {
     new_pair[0] = getRandomColor();
     new_pair[1] = getRandomColor();
   }

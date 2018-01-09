@@ -110,7 +110,7 @@ class GameScreen extends Component {
   }
 
   nextColorWord() {
-    const [color, word] = getRandomColorPair(color, word);
+    const [color, word] = getRandomColorPair(this.state.color, this.state.word);
     this.setState({
       color,
       word
