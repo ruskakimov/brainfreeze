@@ -11,6 +11,17 @@ const PlayButton = Button.extend`
   transform: translate(-50%, -50%);
 `;
 
+const Heading = styled.h1`
+  font-size: 5rem;
+  margin: 2rem 0 0.5rem;
+  text-align: center;
+`;
+
+const Subheading = styled.h3`
+  font-size: 1.5rem;
+  text-align: center;
+`;
+
 class MenuScreen extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +37,8 @@ class MenuScreen extends Component {
     const goToGameScreen = this.props.goToGameScreen;
     return (
       <div>
+        <Heading>BrainFreeze</Heading>
+        <Subheading>Does it match?</Subheading>
         <p>last: {window.localStorage['last-score']}</p>
         <p>best: {window.localStorage['best-score']}</p>
         <PlayButton onClick={goToGameScreen}>play</PlayButton>
