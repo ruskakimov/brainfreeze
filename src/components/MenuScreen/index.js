@@ -61,6 +61,8 @@ const Subheading = styled.h3`
 
 const Score = styled.div`
   margin: 3rem 0;
+  float: left;
+  width: 50%;
 `;
 
 const Number = styled.p`
@@ -95,14 +97,16 @@ class MenuScreen extends Component {
         <Subheading>
           {witty_messages[window.localStorage['witty-message-id']]}
         </Subheading>
-        <Score>
-          last score:
-          <Number>{window.localStorage['last-score']}</Number>
-        </Score>
-        <Score>
-          best score:
-          <Number>{window.localStorage['best-score']}</Number>
-        </Score>
+        <div>
+          <Score>
+            best score:
+            <Number>{window.localStorage['best-score']}</Number>
+          </Score>
+          <Score>
+            last score:
+            <Number>{window.localStorage['last-score']}</Number>
+          </Score>
+        </div>
         <PlayButton onClick={goToGameScreen}>play</PlayButton>
       </Wrapper>
     );
