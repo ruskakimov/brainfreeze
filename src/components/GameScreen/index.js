@@ -112,6 +112,13 @@ class GameScreen extends Component {
       word
     });
   }
+  
+  /**
+  * Returns average result rounded to 2 decimals
+  */
+  getAverage() {
+    return Math.round( (this.state.score) / (60 - this.state.secondsLeft) * 100 ) / 100;
+  }
 
   handleYes() {
     const { color, word, score } = this.state;
@@ -165,7 +172,13 @@ class GameScreen extends Component {
           <YesButton onClick={this.handleYes}>YES</YesButton>
         </ButtonPanel>
         <ExitButton onClick={goToMenuScreen}>X</ExitButton>
-        {gameEnd && <Overlay>{gameEndMessage}</Overlay>}
+        {gameEnd && 
+          <Overlay>
+            <div>{gameEndMessage}</div>
+            <div>{"Seconds left: " + this.state.secondsLeft}</div>
+            <div>{"Average: " + this.getAverage()}</div>
+          </Overlay>
+        }
       </div>
     );
   }
