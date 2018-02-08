@@ -78,10 +78,6 @@ class GameScreen extends Component {
     this.handleYes = this.handleYes.bind(this);
   }
 
-  componentDidMount() {
-    this.timer = window.setInterval(this.tick, 1000);
-  }
-
   componentWillUnmount() {
     window.clearInterval(this.timer);
   }
@@ -119,6 +115,10 @@ class GameScreen extends Component {
 
   handleYes() {
     const { color, word, score } = this.state;
+    if (score === 0) {
+      this.timer = window.setInterval(this.tick, 1000);
+    }
+    
     if (color === word) {
       this.setState({
         score: score + 1
@@ -131,6 +131,10 @@ class GameScreen extends Component {
 
   handleNo() {
     const { color, word, score } = this.state;
+    if (score === 0) {
+      this.timer = window.setInterval(this.tick, 1000);
+    }
+    
     if (color !== word) {
       this.setState({
         score: score + 1
