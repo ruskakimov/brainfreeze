@@ -44,7 +44,7 @@ const Overlay = styled.div`
   text-align: center;
   justify-content: center;
   align-items: center;
-  font-size: 7rem;
+  font-size: 4rem;
 `;
 
 const Timer = styled.div`
