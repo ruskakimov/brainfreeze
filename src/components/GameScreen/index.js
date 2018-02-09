@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
+import { readableColor } from 'polished';
 import getRandomColorPair from '../../helpers/randomColor';
 
 import Button from '../components/Button';
@@ -34,7 +35,6 @@ const ExitButton = Button.extend`
 
 const Overlay = styled.div`
   background-color: rgba(255, 255, 255, 0.9);
-  cursor: pointer;
   position: absolute;
   z-index: 100;
   top: 0;
@@ -54,8 +54,21 @@ const OverlayChild = styled.div`
 
   ${props => props.small && css`
     font-size: 2rem;
-
   `}
+`
+
+const OverlayButton = styled.button`
+  border: none;
+  background-color: green;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  /* color of button will be the same as the color of the last word */
+  background-color: ${({ color }) => color ? color : "#3764a9"};
+  /* make text color readable */
+  color: ${({ color }) => color ? readableColor(color) : "white"};
 `
 
 const Timer = styled.div`
@@ -184,10 +197,12 @@ class GameScreen extends Component {
         </ButtonPanel>
         <ExitButton onClick={goToMenuScreen}>X</ExitButton>
         {gameEnd && 
-          <Overlay onClick={this.props.goToMenuScreen}>
+          <Overlay>
             <OverlayChild>{gameEndMessage}</OverlayChild>
             <OverlayChild small>{"Seconds left: " + this.state.secondsLeft}</OverlayChild>
+            <OverlayChild small>{"Your score: " + this.state.score}</OverlayChild>
             <OverlayChild small>{"Expected score: " + this.getAverage()}</OverlayChild>
+            <OverlayButton color={this.state.color} onClick={this.props.goToMenuScreen}> Go to Main </OverlayButton>
           </Overlay>
         }
       </div>
