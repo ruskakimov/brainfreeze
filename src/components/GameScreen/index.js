@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import getRandomColorPair from '../../helpers/randomColor';
 
 import Button from '../components/Button';
@@ -34,6 +34,7 @@ const ExitButton = Button.extend`
 
 const Overlay = styled.div`
   background-color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
   position: absolute;
   z-index: 100;
   top: 0;
@@ -41,11 +42,21 @@ const Overlay = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   text-align: center;
   justify-content: center;
   align-items: center;
   font-size: 4rem;
 `;
+
+const OverlayChild = styled.div`
+  margin-bottom: 2rem;
+
+  ${props => props.small && css`
+    font-size: 2rem;
+
+  `}
+`
 
 const Timer = styled.div`
   font-size: 2rem;
@@ -102,7 +113,6 @@ class GameScreen extends Component {
       this.state.score
     );
     window.clearInterval(this.timer);
-    window.setTimeout(this.props.goToMenuScreen, 1500);
   }
 
   nextColorWord() {
@@ -114,10 +124,11 @@ class GameScreen extends Component {
   }
   
   /**
-  * Returns average result rounded to 2 decimals
+  * Returns ideal result rounded to 2 decimals
   */
   getAverage() {
-    return Math.round( (this.state.score) / (60 - this.state.secondsLeft) * 100 ) / 100;
+    const result = Math.round(Math.round( (this.state.score) / (60 - this.state.secondsLeft) * 100 ) / 100 * 60);
+    return !isFinite(result) || isNaN(result) ? 0 : result;
   }
 
   handleYes() {
@@ -173,10 +184,10 @@ class GameScreen extends Component {
         </ButtonPanel>
         <ExitButton onClick={goToMenuScreen}>X</ExitButton>
         {gameEnd && 
-          <Overlay>
-            <div>{gameEndMessage}</div>
-            <div>{"Seconds left: " + this.state.secondsLeft}</div>
-            <div>{"Average: " + this.getAverage()}</div>
+          <Overlay onClick={this.props.goToMenuScreen}>
+            <OverlayChild>{gameEndMessage}</OverlayChild>
+            <OverlayChild small>{"Seconds left: " + this.state.secondsLeft}</OverlayChild>
+            <OverlayChild small>{"Expected score: " + this.getAverage()}</OverlayChild>
           </Overlay>
         }
       </div>

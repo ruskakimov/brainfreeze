@@ -5,7 +5,6 @@ import Button from '../components/Button';
 
 const witty_messages = [
   'Does it match?',
-  'Does it match?',
   'This game cures cancer',
   'No refunds',
   'Score 99 to uncover the krabby patty secret formula',
