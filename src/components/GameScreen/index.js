@@ -66,9 +66,9 @@ const OverlayButton = styled.button`
   font-weight: bold;
   cursor: pointer;
   /* color of button will be the same as the color of the last word */
-  background-color: ${({ color }) => color ? color : "#3764a9"};
+  background-color: ${({ color }) => color};
   /* make text color readable */
-  color: ${({ color }) => color ? readableColor(color) : "white"};
+  color: ${({ color }) => readableColor(color)};
 `
 
 const Timer = styled.div`
