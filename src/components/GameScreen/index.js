@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { readableColor } from 'polished';
 import getRandomColorPair from '../../helpers/randomColor';
 
 import Button from '../components/Button';
@@ -41,11 +42,34 @@ const Overlay = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   text-align: center;
   justify-content: center;
   align-items: center;
-  font-size: 7rem;
+  font-size: 4rem;
 `;
+
+const OverlayChild = styled.div`
+  margin-bottom: 2rem;
+
+  ${props => props.small && css`
+    font-size: 2rem;
+  `}
+`
+
+const OverlayButton = styled.button`
+  border: none;
+  background-color: green;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  /* color of button will be the same as the color of the last word */
+  background-color: ${({ color }) => color};
+  /* make text color readable */
+  color: ${({ color }) => readableColor(color)};
+`
 
 const Timer = styled.div`
   font-size: 2rem;
@@ -78,10 +102,6 @@ class GameScreen extends Component {
     this.handleYes = this.handleYes.bind(this);
   }
 
-  componentDidMount() {
-    this.timer = window.setInterval(this.tick, 1000);
-  }
-
   componentWillUnmount() {
     window.clearInterval(this.timer);
   }
@@ -106,7 +126,6 @@ class GameScreen extends Component {
       this.state.score
     );
     window.clearInterval(this.timer);
-    window.setTimeout(this.props.goToMenuScreen, 1500);
   }
 
   nextColorWord() {
@@ -116,9 +135,21 @@ class GameScreen extends Component {
       word
     });
   }
+  
+  /**
+  * Returns ideal result rounded to 2 decimals
+  */
+  getAverage() {
+    const result = Math.round(Math.round( (this.state.score) / (60 - this.state.secondsLeft) * 100 ) / 100 * 60);
+    return !isFinite(result) || isNaN(result) ? 0 : result;
+  }
 
   handleYes() {
     const { color, word, score } = this.state;
+    if (score === 0) {
+      this.timer = window.setInterval(this.tick, 1000);
+    }
+    
     if (color === word) {
       this.setState({
         score: score + 1
@@ -131,6 +162,10 @@ class GameScreen extends Component {
 
   handleNo() {
     const { color, word, score } = this.state;
+    if (score === 0) {
+      this.timer = window.setInterval(this.tick, 1000);
+    }
+    
     if (color !== word) {
       this.setState({
         score: score + 1
@@ -161,7 +196,15 @@ class GameScreen extends Component {
           <YesButton onClick={this.handleYes}>YES</YesButton>
         </ButtonPanel>
         <ExitButton onClick={goToMenuScreen}>X</ExitButton>
-        {gameEnd && <Overlay>{gameEndMessage}</Overlay>}
+        {gameEnd && 
+          <Overlay>
+            <OverlayChild>{gameEndMessage}</OverlayChild>
+            <OverlayChild small>{"Seconds left: " + this.state.secondsLeft}</OverlayChild>
+            <OverlayChild small>{"Your score: " + this.state.score}</OverlayChild>
+            <OverlayChild small>{"Expected score: " + this.getAverage()}</OverlayChild>
+            <OverlayButton color={this.state.color} onClick={this.props.goToMenuScreen}> Go to Main </OverlayButton>
+          </Overlay>
+        }
       </div>
     );
   }
