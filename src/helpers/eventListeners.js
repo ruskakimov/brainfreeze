@@ -22,10 +22,10 @@ export const addArrowListeners = (handleNoClick, handleYesClick) => {
  * Adds events listeners to enter (Enter => 13)
  * @returns {Function} removes event listeners on call
  */
-export const addEnterListener = (handlePlayClick) => {
+export const addEnterListener = (handleEnterClick) => {
     const handler = ({ keyCode }) => {
         if (keyCode === 13) {
-            handlePlayClick();
+            handleEnterClick();
         }
     }
 
