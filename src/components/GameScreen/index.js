@@ -203,12 +203,12 @@ class GameScreen extends Component {
       gameEndMessage
     } = this.state;
     return (
-      <div onKeyPress={this.handleYesPress}>
+      <div>
         <Timer>{secondsLeft}</Timer>
         <Score>{score}</Score>
         <ColorWord color={color} word={word} />
         <ButtonPanel>
-          <NoButton onClick={this.handleNoClick} onKeyDown={this.handleNoPress}>NO</NoButton>
+          <NoButton onClick={this.handleNoClick}>NO</NoButton>
           <YesButton onClick={this.handleYesClick}>YES</YesButton>
         </ButtonPanel>
         <ExitButton onClick={goToMenuScreen}>X</ExitButton>
