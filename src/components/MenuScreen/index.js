@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import Button from '../components/Button';
+import { addEnterListener } from "../../helpers/eventListeners";
 
 const witty_messages = [
   'Does it match?',
@@ -81,13 +82,23 @@ class MenuScreen extends Component {
     if (window.localStorage['witty-message-id'] === undefined) {
       window.localStorage['witty-message-id'] = 0;
     }
+
+    this.removeEnterListener = null;
   }
 
   componentDidMount() {
     const id = window.localStorage['witty-message-id'];
     console.log(id);
     window.localStorage['witty-message-id'] = (+id + 1) % witty_messages.length;
+    this.removeEnterListener = addEnterListener(this.props.goToGameScreen);
   }
+  
+  componentWillUnmount() {
+    if (this.removeEnterListener !== null) {
+      this.removeEnterListener();
+    }
+  }
+  
 
   render() {
     const goToGameScreen = this.props.goToGameScreen;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled, { css } from 'styled-components';
 import { readableColor } from 'polished';
 import getRandomColorPair from '../../helpers/randomColor';
+import { addArrowListeners, addEnterListener } from '../../helpers/eventListeners';
 
 import Button from '../components/Button';
 import ColorWord from './components/ColorWord';
@@ -98,13 +99,28 @@ class GameScreen extends Component {
     this.tick = this.tick.bind(this);
     this.endGame = this.endGame.bind(this);
     this.nextColorWord = this.nextColorWord.bind(this);
-    this.handleNo = this.handleNo.bind(this);
-    this.handleYes = this.handleYes.bind(this);
+    this.handleNoClick = this.handleNoClick.bind(this);
+    this.handleYesClick = this.handleYesClick.bind(this);
+    this.removeArrowListeners = null;
+    this.removeEnterListener = null;
+  }
+
+  componentDidMount() {
+    this.removeArrowListeners = addArrowListeners(this.handleNoClick, this.handleYesClick);
+    this.removeEnterListener = addEnterListener(this.props.goToMenuScreen)
   }
 
   componentWillUnmount() {
     window.clearInterval(this.timer);
-  }
+    if (this.removeEventListener !== null) {
+      this.removeArrowListeners();
+    }
+
+    if (this.removeEnterListener !== null) {
+      this.removeEnterListener();
+    }
+    
+  }  
 
   tick() {
     this.setState(prevState => {
@@ -144,7 +160,7 @@ class GameScreen extends Component {
     return !isFinite(result) || isNaN(result) ? 0 : result;
   }
 
-  handleYes() {
+  handleYesClick() {
     const { color, word, score } = this.state;
     if (score === 0) {
       this.timer = window.setInterval(this.tick, 1000);
@@ -160,7 +176,7 @@ class GameScreen extends Component {
     }
   }
 
-  handleNo() {
+  handleNoClick() {
     const { color, word, score } = this.state;
     if (score === 0) {
       this.timer = window.setInterval(this.tick, 1000);
@@ -192,8 +208,8 @@ class GameScreen extends Component {
         <Score>{score}</Score>
         <ColorWord color={color} word={word} />
         <ButtonPanel>
-          <NoButton onClick={this.handleNo}>NO</NoButton>
-          <YesButton onClick={this.handleYes}>YES</YesButton>
+          <NoButton onClick={this.handleNoClick}>NO</NoButton>
+          <YesButton onClick={this.handleYesClick}>YES</YesButton>
         </ButtonPanel>
         <ExitButton onClick={goToMenuScreen}>X</ExitButton>
         {gameEnd && 
